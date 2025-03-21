@@ -235,9 +235,9 @@ function Register() {
                         <div className="text-center mt-4">
                             <p className="text-gray-600">
                                 Already have an account?{" "}
-                                <p onClick={() => navigate('/login')} className="text-blue-500 hover:text-blue-600">
+                                <span onClick={() => navigate('/login')} className="text-blue-500 hover:text-blue-600">
                                     Login Now
-                                </p>
+                                </span>
                             </p>
                         </div>
                     </div>

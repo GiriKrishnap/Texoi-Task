@@ -151,9 +151,9 @@ function Login() {
                         <div className="text-center mt-6">
                             <p className="text-gray-600">
                                 Don't have an account?{" "}
-                                <p onClick={() => navigate('/register')} className="text-blue-500 hover:text-blue-600">
+                                <span onClick={() => navigate('/register')} className="text-blue-500 hover:text-blue-600">
                                     Register Now
-                                </p>
+                                </span>
                             </p>
                         </div>
                     </div>
