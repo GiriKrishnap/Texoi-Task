@@ -49,6 +49,7 @@ hr {
   background-color: #2A586F;
   cursor: pointer;
   transition: border-color 0.25s;
+  padding: 10px;
 }
 
 @media (prefers-color-scheme: light) {

@@ -77,10 +77,9 @@ exports.submitTest = async (req, res, next) => {
  */
 exports.getTestResult = async (req, res, next) => {
     try {
-        const { id } = req.params;
 
         // Get test result
-        const testResult = await testService.getTestResult(id);
+        const testResult = await testService.getTestResult(req.user._id);
 
         // Check if test belongs to user
         if (testResult.user._id.toString() !== req.user._id.toString()) {

@@ -34,7 +34,11 @@ function Login() {
                 localStorage.setItem("token", response.data.data.token);
                 toast.success("Login Completed successfully");
                 setTimeout(() => {
-                    navigate("/questions");
+                    if (response.data.data.completed === true) {
+                        navigate("/result");
+                    } else {
+                        navigate("/questions");
+                    }
                 }, 1000);
 
             } else {

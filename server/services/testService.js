@@ -25,7 +25,7 @@ exports.saveTestResult = async (userId, answers) => {
 
   const user = userId.toString()
   const existingUserId = await userModel.findById(user);
-  if (existingUserId) {
+  if (existingUserId.completed === true) {
     const error = new Error('Already Done');
     error.statusCode = 400;
     throw error;
@@ -65,6 +65,10 @@ exports.saveTestResult = async (userId, answers) => {
       selectedOption: answer.selectedOptionId,
       isCorrect,
     });
+
+    //to avoid reattempt
+    await userModel.updateOne({ _id: userId }, { $set: { completed: true } })
+
   }
 
   // Create test result
@@ -80,11 +84,11 @@ exports.saveTestResult = async (userId, answers) => {
 
 /**
  * Get test result by ID
- * @param {String} testId - Test result ID
+ * @param {String} userId - Test result ID
  * @returns {Object} Test result object
  */
-exports.getTestResult = async (testId) => {
-  const testResult = await TestResult.findById(testId).populate('user');
+exports.getTestResult = async (userId) => {
+  const testResult = await TestResult.findOne({ user: userId }).populate('user');
 
   if (!testResult) {
     const error = new Error('Test result not found');

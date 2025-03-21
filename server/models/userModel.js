@@ -29,6 +29,10 @@ const userSchema = new mongoose.Schema(
             required: [true, 'Please select your current status'],
             enum: ['Student', 'Employee'],
         },
+        completed: {
+            type: Boolean,
+            default: false
+        },
         password: {
             type: String,
             required: [true, 'Please add a password'],

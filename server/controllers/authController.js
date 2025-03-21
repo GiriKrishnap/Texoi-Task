@@ -78,6 +78,7 @@ exports.loginUser = async (req, res, next) => {
                     mobileNumber: user.mobileNumber,
                     currentStatus: user.currentStatus,
                 },
+                completed: user.completed,
                 token,
             },
         });
@@ -91,23 +92,13 @@ exports.loginUser = async (req, res, next) => {
  * @route   GET /api/auth/profile
  * @access  Private
  */
-exports.getUserProfile = async (req, res, next) => {
+exports.checkCompleted = async (req, res, next) => {
     try {
-        // Get user profile
         const user = await authService.getUserProfile(req.user._id);
-
-        // Send response
+        let completed = user.completed
         res.status(200).json({
             status: 'success',
-            data: {
-                user: {
-                    id: user._id,
-                    fullName: user.fullName,
-                    email: user.email,
-                    mobileNumber: user.mobileNumber,
-                    currentStatus: user.currentStatus,
-                },
-            },
+            completed
         });
     } catch (error) {
         next(error);

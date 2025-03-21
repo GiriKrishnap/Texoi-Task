@@ -10,7 +10,7 @@ const { feedbackValidator } = require('../utils/validators');
 // All routes are protected
 router.use(protect);
 
-router.post('/', feedbackValidator, submitFeedback);
+router.post('/submit', feedbackValidator, submitFeedback);
 router.get('/:testId', getFeedback);
 
 module.exports = router;

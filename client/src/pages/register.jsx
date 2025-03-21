@@ -80,8 +80,8 @@ function Register() {
                                     {...register("name", {
                                         required: "name is required",
                                         minLength: {
-                                            value: 6,
-                                            message: "name must be at least 6 characters",
+                                            value: 3,
+                                            message: "name must be at least 3 characters",
                                         },
                                     })}
                                 />

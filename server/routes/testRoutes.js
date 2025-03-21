@@ -13,7 +13,7 @@ router.use(protect);
 
 router.get('/questions', getQuestions);
 router.post('/submit', submitTest);
-router.get('/:id', getTestResult);
+router.get('/get-result', getTestResult);
 router.get('/', getUserTests);
 
 module.exports = router;

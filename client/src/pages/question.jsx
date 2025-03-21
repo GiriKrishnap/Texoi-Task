@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Header from "../layouts/header";
 import API from '../services/api';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const Questions = () => {
     // State for questions data
@@ -12,7 +13,7 @@ const Questions = () => {
     const [sidebarVisible, setSidebarVisible] = useState(true);
     const [allAnswered, setAllAnswered] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
-
+    const navigate = useNavigate()
     // Check if all questions are answered
     useEffect(() => {
         if (questions.length > 0) {
@@ -23,14 +24,22 @@ const Questions = () => {
 
     // getAllQuestions from backend
     useEffect(() => {
+        checkCompleted()
         getAllQuestions();
     }, []);
+
+    const checkCompleted = async () => {
+        const response = await API.get("/auth/completed");
+        if (response.data.completed) {
+            toast.success('already Done the test')
+            navigate('/result')
+        }
+    }
 
     const getAllQuestions = async () => {
         try {
             const response = await API.get("/tests/questions");
             if (response.status === 200) {
-                console.log(response.data.data.questions);
                 // Map the questions to include selectedOption property if not already there
                 const mappedQuestions = response.data.data.questions.map((q) => ({
                     ...q,
@@ -90,13 +99,14 @@ const Questions = () => {
                     questionId: q.id,
                     selectedOptionId: q.selectedOptionId // Use the stored option ID
                 }));
-                console.log(questions)
+    
                 // Send answers to backend
                 const response = await API.post("/tests/submit", { answers: formattedAnswers });
 
-                if (response.status === 200) {
+                if (response.status === 201) {
                     toast.success("Quiz submitted successfully!");
-                    // You might want to redirect or show results here
+                    navigate('/result');
+
                 }
             } catch (error) {
                 console.error("Submit error:", error.response?.data || error.message);
