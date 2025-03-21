@@ -6,7 +6,7 @@ const User = require('../models/userModel');
  * @returns {Object} Newly created user object
  */
 exports.registerUser = async (userData) => {
-    const { fullName, email, mobileNumber, currentStatus, password } = userData;
+    const { name, email, mobileNumber, currentStatus, password } = userData;
 
     // Check if user already exists with email or mobile
     const existingUserEmail = await User.findOne({ email });
@@ -25,7 +25,7 @@ exports.registerUser = async (userData) => {
 
     // Create user
     const user = await User.create({
-        fullName,
+        fullName: name,
         email,
         mobileNumber,
         currentStatus,

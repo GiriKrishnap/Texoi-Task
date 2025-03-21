@@ -30,7 +30,7 @@ exports.registerUser = async (req, res, next) => {
             data: {
                 user: {
                     id: user._id,
-                    fullName: user.fullName,
+                    fullName: user.name,
                     email: user.email,
                     mobileNumber: user.mobileNumber,
                     currentStatus: user.currentStatus,

@@ -8,7 +8,7 @@ const testService = require('../services/testService');
 exports.getQuestions = async (req, res, next) => {
     try {
         // Get questions
-        const questions = await testService.getQuestions(5); // Get 5 questions
+        const questions = await testService.getQuestions(10); // Get 5 questions
 
         // Map questions to remove correct answer flags for client
         const mappedQuestions = questions.map(q => ({

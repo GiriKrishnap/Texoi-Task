@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import Header from "../layouts/header";
 import { useForm } from "react-hook-form";
 import { Listbox } from "@headlessui/react";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const countryOptions = [
     { code: "+91", flag: "https://flagcdn.com/w40/in.png", country: "India" },
@@ -13,9 +16,34 @@ const countryOptions = [
 function Login() {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [selectedCountry, setSelectedCountry] = useState(countryOptions[0]);
+    const navigate = useNavigate();
 
-    const onSubmit = (data) => {
-        console.log("Login with:", selectedCountry.code + data.phoneNumber, data.password );
+    const onSubmit = async (data) => {
+        try {
+            const { phoneNumber, password } = data;
+            const mobileNumber = selectedCountry.code + phoneNumber;
+
+            console.log("Logging in with:", mobileNumber, password);
+
+            const response = await axios.post(
+                `${import.meta.env.VITE_PUBLIC_SERVER_URL}/auth/login`,
+                { mobileNumber, password }
+            );
+
+            if (response.status === 200) {
+                localStorage.setItem("token", response.data.data.token);
+                toast.success("Login Completed successfully");
+                setTimeout(() => {
+                    navigate("/questions");
+                }, 1000);
+
+            } else {
+                toast.error("Something went wrong, please try again.");
+            }
+        } catch (error) {
+            console.error("Login error:", error.response?.data || error.message);
+            toast.error(error.response?.data?.message || "Failed to login.");
+        }
     };
 
     return (

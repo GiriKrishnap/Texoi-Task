@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import Header from "../layouts/header";
 import { useForm } from "react-hook-form";
 import { Listbox } from "@headlessui/react";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+
 
 const countryOptions = [
     { code: "+91", flag: "https://flagcdn.com/w40/in.png", country: "India" },
@@ -13,10 +17,37 @@ const countryOptions = [
 function Register() {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [selectedCountry, setSelectedCountry] = useState(countryOptions[0]);
+    const [currentStatus, setCurrentStatus] = useState("Student");
+    const navigate = useNavigate();
 
-    const onSubmit = (data) => {
-        console.log("Login with:", selectedCountry.code + data.phoneNumber, data.password, data.name, data.email);
 
+    const onSubmit = async (data) => {
+        try {
+            const { phoneNumber, password, name, email } = data;
+            const mobileNumber = selectedCountry.code + phoneNumber;
+
+            const response = await axios.post(
+                `${import.meta.env.VITE_PUBLIC_SERVER_URL}/auth/register`,
+                { mobileNumber, password, name, email, currentStatus }
+            );
+
+            if (response.status === 201) {
+                toast.success("Account created successfully");
+                setTimeout(() => {
+                    navigate("/login");
+                }, 1000);
+
+            } else {
+                toast.error("Something went wrong, please try again.");
+            }
+        } catch (error) {
+            console.error("register error:", error.response?.data || error.message);
+            toast.error(error.response?.data?.message || "Failed to register.");
+        }
+    };
+
+    const handleStatusChange = (e) => {
+        setCurrentStatus(e.target.value);
     };
 
     return (
@@ -35,8 +66,6 @@ function Register() {
                 <div className="flex justify-center">
                     <div className="bg-white p-8 rounded-lg shadow-xl w-full max-w-md">
                         <form onSubmit={handleSubmit(onSubmit)}>
-
-
 
                             <div className="mb-4">
                                 <label htmlFor="name" className="block text-gray-700 text-lg font-medium mb-2">
@@ -60,8 +89,6 @@ function Register() {
                                     <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
                                 )}
                             </div>
-
-
 
                             <div className="mb-4">
                                 <label htmlFor="email" className="block text-gray-700 text-lg font-medium mb-2">
@@ -140,6 +167,43 @@ function Register() {
                                 </div>
                             </div>
 
+                            {/* Current Status Field */}
+                            <div className="mb-4">
+                                <label className="block text-gray-700 text-lg font-medium mb-2">
+                                    Current Status
+                                </label>
+                                <div className="flex items-center space-x-6">
+                                    <div className="flex items-center">
+                                        <input
+                                            id="Student"
+                                            type="radio"
+                                            value="Student"
+                                            name="status"
+                                            checked={currentStatus === "Student"}
+                                            onChange={handleStatusChange}
+                                            className="h-4 w-4 text-blue-600 focus:ring-blue-500"
+                                        />
+                                        <label htmlFor="Student" className="ml-2 text-gray-700">
+                                            Student
+                                        </label>
+                                    </div>
+                                    <div className="flex items-center">
+                                        <input
+                                            id="Employee"
+                                            type="radio"
+                                            value="Employee"
+                                            name="status"
+                                            checked={currentStatus === "Employee"}
+                                            onChange={handleStatusChange}
+                                            className="h-4 w-4 text-blue-600 focus:ring-blue-500"
+                                        />
+                                        <label htmlFor="Employee" className="ml-2 text-gray-700">
+                                            Employee
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
                             {/* Password Field */}
                             <div className="mb-4">
                                 <label htmlFor="password" className="block text-gray-700 text-lg font-medium mb-2">
@@ -169,7 +233,7 @@ function Register() {
                                 type="submit"
                                 className="w-full button-style text-white font-medium py-3 rounded transition duration-200"
                             >
-                                Login
+                                Register
                             </button>
                         </form>
 

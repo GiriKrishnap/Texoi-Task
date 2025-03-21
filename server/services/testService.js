@@ -1,12 +1,13 @@
 const Question = require('../models/questionModel');
 const TestResult = require('../models/testResultModel');
+const userModel = require('../models/userModel');
 
 /**
  * Get questions for the test
  * @param {Number} limit - Number of questions to fetch (default 5)
  * @returns {Array} Array of questions
  */
-exports.getQuestions = async (limit = 5) => {
+exports.getQuestions = async (limit = 10) => {
   const questions = await Question.find().limit(limit);
   return questions;
 };
@@ -22,9 +23,18 @@ exports.saveTestResult = async (userId, answers) => {
   let totalScore = 0;
   const processedAnswers = [];
 
+  const user = userId.toString()
+  const existingUserId = await userModel.findById(user);
+  if (existingUserId) {
+    const error = new Error('Already Done');
+    error.statusCode = 400;
+    throw error;
+  }
+
   for (const answer of answers) {
+    console.log('here - ', answer)
     const question = await Question.findById(answer.questionId);
-    
+
     if (!question) {
       const error = new Error(`Question with ID ${answer.questionId} not found`);
       error.statusCode = 404;
@@ -43,7 +53,7 @@ exports.saveTestResult = async (userId, answers) => {
     }
 
     const isCorrect = selectedOption.isCorrect;
-    
+
     // Add points if answer is correct
     if (isCorrect) {
       totalScore += question.pointValue;

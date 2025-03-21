@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 const OnBoarding = lazy(() => import('./pages/onBoarding'));
 const Login = lazy(() => import('./pages/login'));
 const Register = lazy(() => import('./pages/register'));
+const Questions = lazy(() => import('./pages/question'));
 
 //........................................................................................
 
@@ -27,6 +28,7 @@ function App() {
                     <Route exact path={""} element={<OnBoarding />} />
                     <Route exact path={"/login"} element={<Login />} />
                     <Route exact path={"/register"} element={<Register />} />
+                    <Route exact path={"/questions"} element={<Questions />} />
 
                     {/* <Route path='*' exact element={<NotFound404 />} /> */}
 

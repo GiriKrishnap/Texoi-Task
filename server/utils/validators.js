@@ -4,7 +4,7 @@ const { body } = require('express-validator');
  * Validation rules for user registration
  */
 exports.registerValidator = [
-    body('fullName')
+    body('name')
         .notEmpty()
         .withMessage('Full name is required')
         .trim(),
@@ -15,7 +15,6 @@ exports.registerValidator = [
     body('mobileNumber')
         .notEmpty()
         .withMessage('Mobile number is required')
-        .matches(/^[0-9]{10}$/)
         .withMessage('Please enter a valid 10-digit mobile number'),
     body('currentStatus')
         .isIn(['Student', 'Employee'])

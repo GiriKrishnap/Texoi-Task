@@ -1,21 +1,16 @@
 import axios from "axios";
 
-const API_BASE_URL = "https://jsonplaceholder.typicode.com";
-
-const api = axios.create({
-  baseURL: API_BASE_URL,
-  headers: {
-    "Content-Type": "application/json",
-  },
+const API = axios.create({
+  baseURL: import.meta.env.VITE_PUBLIC_SERVER_URL,
 });
 
-// Function to fetch data
-export const getPosts = async () => {
-  try {
-    const response = await api.get("/posts");
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching posts:", error);
-    throw error;
+// Add Authorization header for all requests
+API.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
   }
-};
+  return config;
+}, (error) => Promise.reject(error));
+
+export default API;

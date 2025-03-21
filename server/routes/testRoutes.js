@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { 
-  getQuestions, 
-  submitTest, 
-  getTestResult, 
-  getUserTests 
+const {
+  getQuestions,
+  submitTest,
+  getTestResult,
+  getUserTests
 } = require('../controllers/testController');
 const { protect } = require('../middlewares/authMiddleware');
 
