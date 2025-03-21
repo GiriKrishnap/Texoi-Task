@@ -8,17 +8,8 @@ const feedbackRoutes = require('./routes/feedbackRoutes');
 // Initialize express app
 const app = express();
 
-// Configure CORS to allow only specific origins
-const corsOptions = {
-    origin: 'https://texoi-task-frontend.vercel.app', // Allow only this frontend
-    methods: 'GET,POST,PUT,DELETE',
-    allowedHeaders: 'Content-Type,Authorization',
-    credentials: true // Allow cookies if needed
-};
-
-app.use(cors(corsOptions));
-
 // Middleware
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -26,6 +17,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/auth', authRoutes);
 app.use('/tests', testRoutes);
 app.use('/feedback', feedbackRoutes);
+
 
 // Error handling middleware
 app.use(errorHandler);
