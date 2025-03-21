@@ -23,12 +23,7 @@ function App() {
         <div className="App">
             <div><Toaster /></div>
             <Router>
-
-                {/* <Suspense fallback={<Loading />}> */}
-
                 <Routes>
-
-                    {/* UserPart */}
 
                     <Route element={<PublicRoute />}>
                         <Route exact path={""} element={<OnBoarding />} />
@@ -44,7 +39,6 @@ function App() {
                     <Route path='*' element={<NotFound404 />} />
 
                 </Routes>
-                {/* </Suspense> */}
             </Router>
 
         </div >
