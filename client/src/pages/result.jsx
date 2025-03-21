@@ -175,8 +175,6 @@ const TestResultFeedback = () => {
                     </div>
                 </div>
 
-
-
             </div>
         </>
     );
