@@ -1,164 +1,166 @@
-# MERN Authentication & Test System - Backend
+# MERN Authentication & Test System
 
-A RESTful API backend built with Node.js, Express, and MongoDB for a user authentication system with an MCQ-based test and feedback submission.
+A full-stack MERN application featuring user authentication and an MCQ-based test system with feedback submission.
 
-## Features
+## 🚀 Features
 
-- User authentication (register/login with mobile number and password)
-- JWT token-based authentication
-- User role selection (Student/Employee)
-- 5-question MCQ test system
-- Score calculation (5 marks per question)
-- Emoji-based feedback submission
-- Clean architecture with separation of concerns
+- **User Authentication**
+  - Register/Login with Mobile Number & Password
+  - Password hashing with bcrypt
+  - JWT token-based authentication
+  - User role selection (Student/Employee)
 
-## Tech Stack
+- **MCQ Test System**
+  - 5-question test with multiple-choice answers
+  - Automatic score calculation (5 marks per question)
+  - Display of final results
 
-- **Node.js** - JavaScript runtime
-- **Express.js** - Web framework
-- **MongoDB** - Database
-- **Mongoose** - MongoDB ODM
-- **JWT** - Token-based authentication
-- **bcryptjs** - Password hashing
+- **Feedback Collection**
+  - Emoji-based feedback submission
+  - Stored in database for future analysis
 
-## Project Structure
+
+## 💻 Tech Stack
+
+### Frontend
+- React.js with Vite
+- Tailwind CSS for styling
+- React Router for navigation
+- Form validation using useForm
+- Axios for API requests
+
+### Backend
+- Node.js + Express.js
+- RESTful API architecture
+- MongoDB with Mongoose
+- JWT for authentication
+- bcrypt.js for password hashing
+- CORS & dotenv for security
+
+## 🏗️ Project Structure
 
 ```
-backend/
+
+├── client/                 # Frontend React application
+│   ├── public/
+│   ├── src/
+│   │   ├── assets/         # assets (image)
+│   │   ├── components/     # Reusable components
+│   │   ├── layout/         # header components
+│   │   ├── pages/          # Page components
+│   │   ├── services/       # API service functions
+│   │   ├── utils/          # Utility functions
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   ├── .env                # Environment variables
+│   ├── package.json
+│   └── vite.config.js
 │
-├── config/                 # Configuration files
-│   ├── db.js               # Database connection
-│   └── config.js           # Environment variables & app config
+├── server/                 # Backend Node.js application
+│   ├── config/             # db configuration
+│   ├── controllers/        # Route controllers
+│   ├── middleware/         # Custom middleware
+│   ├── models/             # Database models
+│   ├── routes/             # API routes
+│   ├── services/           # service logics
+│   ├── utils/              # Utility functions
+│   ├── .env                # Environment variables
+│   ├── package.json
+│   └── server.js
 │
-├── controllers/            # Request handlers
-│   ├── authController.js   # Authentication logic
-│   ├── testController.js   # Test management
-│   └── feedbackController.js # Feedback logic
-│
-├── middlewares/            # Custom middlewares
-│   ├── authMiddleware.js   # JWT verification middleware
-│   └── errorMiddleware.js  # Error handling middleware
-│
-├── models/                 # Database models
-│   ├── userModel.js        # User schema
-│   ├── questionModel.js    # Question schema
-│   ├── testResultModel.js  # Test results schema
-│   └── feedbackModel.js    # Feedback schema
-│
-├── routes/                 # API routes
-│   ├── authRoutes.js       # Auth endpoints
-│   ├── testRoutes.js       # Test endpoints
-│   └── feedbackRoutes.js   # Feedback endpoints
-│
-├── services/               # Business logic layer
-│   ├── authService.js      # Auth service
-│   ├── testService.js      # Test service 
-│   └── feedbackService.js  # Feedback service
-│
-├── utils/                  # Utility functions
-│   ├── jwtUtils.js         # JWT helper functions
-│   ├── validators.js       # Validation helpers
-│   └── seedData.js         # Database seeder
-│
-├── app.js                  # Express app setup
-├── server.js               # Server entry point
-└── .env                    # Environment variables
+├── .gitignore
+├── package.json
+└── README.md
 ```
 
-## Getting Started
+## 🚀 Getting Started
 
 ### Prerequisites
 
-- Node.js (v14.x or higher)
-- MongoDB (local or Atlas)
+- Node.js (v14 or higher)
+- npm or yarn
+- MongoDB Atlas account or local MongoDB installation
 
 ### Installation
 
-1. Clone the repository
-   ```
-   git clone <repository-url>
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/GiriKrishnap/Texoi-Task.git
+   cd Texoi-Task
    ```
 
-2. Install dependencies
-   ```
+2. Install server dependencies:
+   ```bash
    cd server
    npm install
    ```
 
-3. Set up environment variables
-   ```
-   cp .env.example .env
-   ```
-   Edit the `.env` file with your MongoDB connection string and JWT secret
-
-4. Seed the database with sample questions
-   ```
-   node utils/seedData.js -i
+3. Install client dependencies:
+   ```bash
+   cd ../client
+   npm install
    ```
 
-5. Start the server
+### Configuration
+
+1. Create a `.env` file in the server directory:
    ```
+   PORT=5000
+   MONGODB_URI=your_mongodb_connection_string
+   JWT_SECRET=your_jwt_secret_key
+   ```
+
+2. Create a `.env` file in the client directory:
+   ```
+   VITE_API_URL=http://localhost:5000/
+   ```
+
+### Running the Application
+
+1. Start the server:
+   ```bash
+   cd server
    npm run dev
    ```
 
-## API Endpoints
+2. Start the client:
+   ```bash
+   cd client
+   npm run dev
+   ```
+
+3. Open your browser and navigate to `http://localhost:5173`
+
+## 📊 API Endpoints
 
 ### Authentication
+- `POST /auth/register` - Register a new user
+- `POST /auth/login` - Login and receive JWT token
 
-- `POST /api/auth/register` - Register a new user
-- `POST /api/auth/login` - Login a user
-- `GET /api/auth/profile` - Get user profile (protected)
-
-### Tests
-
-- `GET /api/tests/questions` - Get test questions (protected)
-- `POST /api/tests/submit` - Submit test answers (protected)
-- `GET /api/tests/:id` - Get specific test result (protected)
-- `GET /api/tests` - Get all user's tests (protected)
+### Test
+- `GET /test/questions` - Get test questions
+- `POST /test/submit` - Submit test answers
 
 ### Feedback
+- `POST /feedback` - Submit user feedback
 
-- `POST /api/feedback` - Submit feedback for a test (protected)
-- `GET /api/feedback/:testId` - Get feedback for a test (protected)
 
-## Authentication
+## 🚢 Deployment
 
-The API uses JWT (JSON Web Token) for authentication. To access protected routes:
+### Frontend
+- Deployed on Vercel
 
-1. Register or login to get a token
-2. Include the token in the request header:
-   ```
-   Authorization: Bearer <token>
-   ```
+### Backend
+- Deployed on Vercel
 
-## Data Models
+### Database
+- MongoDB Atlas
 
-### User
-- fullName
-- email
-- mobileNumber
-- currentStatus (Student/Employee)
-- password (hashed)
 
-### Question
-- text
-- options (array of text and isCorrect)
-- explanation
-- pointValue
+## 👨‍💻 Author
 
-### TestResult
-- user (reference to User)
-- answers (array of question, selectedOption, isCorrect)
-- totalScore
-- totalQuestions
-- completedAt
+Giri krishna
 
-### Feedback
-- user (reference to User)
-- testResult (reference to TestResult)
-- emoji
-- comment
+---
 
-## License
-
-This project is licensed under the MIT License.
+Made with ❤️ using the MERN stack (MongoDB, Express, React, Node.js)
