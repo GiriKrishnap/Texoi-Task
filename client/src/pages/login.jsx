@@ -20,7 +20,7 @@ function Login() {
             console.log("Logging in with:", mobileNumber, password);
 
             const response = await axios.post(
-                `${import.meta.env.VITE_PUBLIC_SERVER_URL}/auth/login`,
+                `${import.meta.env.VITE_PUBLIC_SERVER_URL}auth/login`,
                 { mobileNumber, password }
             );
 
