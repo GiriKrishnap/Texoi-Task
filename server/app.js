@@ -10,9 +10,8 @@ const app = express();
 
 // Middleware
 app.use(cors({
-    origin: ['https://texoi-task-ni1fgs84x-giri-krishna-ps-projects.vercel.app', 'http://localhost:5001'],
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    origin: true, // This reflects the request origin
+    credentials: true
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
