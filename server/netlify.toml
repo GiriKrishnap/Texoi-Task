@@ -5,13 +5,3 @@
   from = "/*"
   to = "/.netlify/functions/serverless"
   status = 200
-
-[[redirects]]
-  from = "/questions/*"
-  to = "/.netlify/functions/server/questions/:splat"
-  status = 200
-
-[[redirects]]
-  from = "/feedback/*"
-  to = "/.netlify/functions/server/feedback/:splat"
-  status = 200
