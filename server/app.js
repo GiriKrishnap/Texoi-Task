@@ -20,7 +20,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // Routes
 app.use('/auth', authRoutes);
-app.use('/tests', testRoutes);
+app.use('/questions', testRoutes);
 app.use('/feedback', feedbackRoutes);
 
 

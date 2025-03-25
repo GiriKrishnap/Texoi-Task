@@ -38,7 +38,7 @@ const Questions = () => {
 
     const getAllQuestions = async () => {
         try {
-            const response = await API.get("/tests/questions");
+            const response = await API.get("/questions/questions");
             if (response.status === 200) {
                 // Map the questions to include selectedOption property if not already there
                 const mappedQuestions = response.data.data.questions.map((q) => ({
@@ -101,7 +101,7 @@ const Questions = () => {
                 }));
     
                 // Send answers to backend
-                const response = await API.post("/tests/submit", { answers: formattedAnswers });
+                const response = await API.post("/questions/submit", { answers: formattedAnswers });
 
                 if (response.status === 201) {
                     toast.success("Quiz submitted successfully!");

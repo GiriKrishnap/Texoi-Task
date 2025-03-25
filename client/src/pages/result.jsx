@@ -32,7 +32,7 @@ const TestResultFeedback = () => {
 
     const fetchTestResult = async () => {
         try {
-            const response = await API.get("/tests/get-result")
+            const response = await API.get("/questions/get-result")
             setTestResult(response.data.data.testResult);
             setTestId(response.data.data.testResult.id);
         } catch (err) {
