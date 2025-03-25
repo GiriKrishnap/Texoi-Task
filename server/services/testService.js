@@ -1,6 +1,6 @@
-const Question = require('../models/questionModel');
-const TestResult = require('../models/testResultModel');
-const userModel = require('../models/userModel');
+const Question = require('../models/questionModel.js');
+const TestResult = require('../models/testResultModel.js');
+const userModel = require('../models/userModel.js');
 
 /**
  * Get questions for the test

@@ -1,5 +1,5 @@
-const Feedback = require('../models/feedbackModel');
-const TestResult = require('../models/testResultModel');
+const Feedback = require('../models/feedBackModel.js');
+const TestResult = require('../models/testResultModel.js');
 
 /**
  * Submit feedback for a test
