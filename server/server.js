@@ -8,12 +8,20 @@ const connectDB = require("./config/db");
 
 const app = express();
 
-// Middleware
-app.use(cors({
-    origin: "https://texoi-task.vercel.app",
-    methods: "GET,POST,PUT,DELETE",
-    allowedHeaders: "Content-Type,Authorization",
-}));
+
+const allowedOrigins = ["https://texoi-task.vercel.app"]; // Replace with your frontend URL
+
+app.use(
+    cors({
+        origin: allowedOrigins,
+        methods: "GET,POST,PUT,DELETE,OPTIONS",
+        allowedHeaders: "Content-Type,Authorization",
+        credentials: true,
+    })
+);
+//Handle Preflight Requests
+app.options("*", cors()); // This ensures all OPTIONS requests pass
+
 connectDB();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
