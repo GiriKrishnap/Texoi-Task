@@ -2,6 +2,16 @@
   functions = "functions"
 
 [[redirects]]
-  from = "/*"
-  to = "/.netlify/functions/serverless"
+  from = "/auth/*"
+  to = "/.netlify/functions/serverless/auth/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/questions/*"
+  to = "/.netlify/functions/serverless/questions/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/feedback/*"
+  to = "/.netlify/functions/serverless/feedback/:splat"
   status = 200
