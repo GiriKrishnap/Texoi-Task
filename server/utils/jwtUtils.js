@@ -7,7 +7,6 @@ const config = require('../config/config');
  * @returns {String} JWT token
  */
 exports.generateToken = (user) => {
-    console.log("userId is here - ", user._id)
     return jwt.sign({ id: user._id }, config.JWT_SECRET, {
         expiresIn: config.JWT_EXPIRE,
     });
