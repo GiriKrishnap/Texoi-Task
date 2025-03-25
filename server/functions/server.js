@@ -1,10 +1,10 @@
 const express = require("express");
 const cors = require("cors");
-const { errorHandler } = require("./middlewares/errorMiddleware");
-const authRoutes = require("./routes/authRoutes");
-const testRoutes = require("./routes/testRoutes");
-const feedbackRoutes = require("./routes/feedbackRoutes");
-const connectDB = require("./config/db");
+const { errorHandler } = require("../middlewares/errorMiddleware");
+const authRoutes = require("../routes/authRoutes");
+const testRoutes = require("../routes/testRoutes");
+const feedbackRoutes = require("../routes/feedbackRoutes");
+const connectDB = require("../config/db");
 const serverless = require("serverless-http");
 
 // Initialize express app
