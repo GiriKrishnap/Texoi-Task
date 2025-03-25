@@ -4,8 +4,8 @@ const { errorHandler } = require("./middlewares/errorMiddleware");
 const authRoutes = require("./routes/authRoutes");
 const testRoutes = require("./routes/testRoutes");
 const feedbackRoutes = require("./routes/feedbackRoutes");
-const config = require("./config/config");
 const connectDB = require("./config/db");
+
 const app = express();
 
 // Middleware
@@ -14,7 +14,7 @@ connectDB();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Routes (Keep them as they are)
+// Routes
 app.use("/auth", authRoutes);
 app.use("/questions", testRoutes);
 app.use("/feedback", feedbackRoutes);
@@ -30,5 +30,5 @@ app.use("*", (req, res) => {
     });
 });
 
-// Export the app (Remove app.listen)
+// Export the app for Netlify
 module.exports = app;
